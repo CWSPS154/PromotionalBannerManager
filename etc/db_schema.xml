@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--/*-->
+<!-- * Copyright CWSPS154. All rights reserved.-->
+<!-- * @auth CWSPS154-->
+<!-- * @link  https://github.com/CWSPS154-->
+<!-- */-->
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="promotional_banner" resource="default" engine="innodb"
+           comment="The table to store the promotional banner data">
+
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Banner ID"/>
+
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Banner Title"/>
+
+        <column xsi:type="text" name="description" nullable="true" comment="Banner Description"/>
+
+        <column xsi:type="varchar" name="image" nullable="true" length="255" comment="Banner Image"/>
+
+        <column xsi:type="int" name="priority" unsigned="false" nullable="false" default="0" comment="Priority"/>
+
+        <column xsi:type="date" name="start_date" nullable="false" comment="Start Date"/>
+
+        <column xsi:type="date" name="end_date" nullable="false" comment="End Date"/>
+
+        <column xsi:type="smallint" name="status" unsigned="true" nullable="false" default="1" comment="Status"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+        <index referenceId="PROMOTIONAL_BANNER_ENTITY_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+
+        <index referenceId="PROMOTIONAL_BANNER_PRIORITY_INDEX" indexType="btree">
+            <column name="priority"/>
+        </index>
+
+        <index referenceId="PROMOTIONAL_BANNER_START_DATE_INDEX" indexType="btree">
+            <column name="start_date"/>
+        </index>
+
+        <index referenceId="PROMOTIONAL_BANNER_END_DATE_INDEX" indexType="btree">
+            <column name="end_date"/>
+        </index>
+
+    </table>
+</schema>

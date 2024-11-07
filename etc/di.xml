@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--/*-->
+<!-- * Copyright CWSPS154. All rights reserved.-->
+<!-- * @auth CWSPS154-->
+<!-- * @link  https://github.com/CWSPS154-->
+<!-- */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="CWSPS154\PromotionalBannerManager\Api\Data\PromotionalBannerInterface"
+                type="CWSPS154\PromotionalBannerManager\Model\PromotionalBanner"/>
+    <preference for="CWSPS154\PromotionalBannerManager\Api\PromotionalBannerRepositoryInterface"
+                type="CWSPS154\PromotionalBannerManager\Model\PromotionalBannerRepository"/>
+    <preference for="CWSPS154\PromotionalBannerManager\Ui\Component\Listing\AddFilterInterface"
+                type="CWSPS154\PromotionalBannerManager\Ui\Component\Listing\FulltextFilter"/>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="promotional_banner_listing_data_source" xsi:type="string">PromotionalBannerCollection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="PromotionalBannerCollection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">promotional_banner</argument>
+            <argument name="resourceModel" xsi:type="string">
+                CWSPS154\PromotionalBannerManager\Model\ResourceModel\PromotionalBanner
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="CWSPS154\PromotionalBannerManager\Ui\Component\Listing\DataProvider">
+        <arguments>
+            <argument name="additionalFilterPool" xsi:type="array">
+                <item name="fulltext" xsi:type="object">CWSPS154\PromotionalBannerManager\Ui\Component\Listing\AddFilterInterface</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
