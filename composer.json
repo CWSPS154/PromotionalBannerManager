@@ -1,0 +1,20 @@
+{
+  "name": "cwsps154/module-promotional-banner-manager",
+  "version": "1.0.0",
+  "description": "Promotional Banner Manager",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*"
+  },
+  "license": [
+    "Proprietary"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "CWSPS154\\PromotionalBannerManager\\": ""
+    }
+  }
+}
