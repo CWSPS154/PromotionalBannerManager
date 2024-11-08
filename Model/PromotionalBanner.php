@@ -63,18 +63,18 @@ class PromotionalBanner extends AbstractModel implements PromotionalBannerInterf
     }
 
     /**
-     * @return string
+     * @return string|array|null
      */
-    public function getImage(): string
+    public function getImage(): string|array|null
     {
         return $this->getData(self::IMAGE);
     }
 
     /**
-     * @param string $image
+     * @param string|array $image
      * @return PromotionalBannerInterface
      */
-    public function setImage(string $image): PromotionalBannerInterface
+    public function setImage(string|array $image): PromotionalBannerInterface
     {
         return $this->setData(self::IMAGE, $image);
     }

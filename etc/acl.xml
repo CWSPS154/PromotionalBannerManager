@@ -16,9 +16,10 @@
                         <resource id="CWSPS154_PromotionalBannerManager::listing"
                                   title="View Grid" translate="title" sortOrder="10">
                             <resource id="CWSPS154_PromotionalBannerManager::create_banner"
-                                      title="Create Banner" translate="title" sortOrder="10"/>
-                            <resource id="CWSPS154_PromotionalBannerManager::edit_banner"
-                                      title="Edit Banner" translate="title" sortOrder="20"/>
+                                      title="Create Banner" translate="title" sortOrder="10">
+                                <resource id="CWSPS154_PromotionalBannerManager::edit_banner"
+                                          title="Edit Banner" translate="title" sortOrder="20"/>
+                            </resource>
                             <resource id="CWSPS154_PromotionalBannerManager::delete_banner"
                                       title="Delete Banner" translate="title" sortOrder="20"/>
                         </resource>

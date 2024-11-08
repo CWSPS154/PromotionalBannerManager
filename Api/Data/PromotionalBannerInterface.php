@@ -59,15 +59,15 @@ interface PromotionalBannerInterface
     public function setDescription(string $description): PromotionalBannerInterface;
 
     /**
-     * @return string
+     * @return string|array|null
      */
-    public function getImage(): string;
+    public function getImage(): string|array|null;
 
     /**
-     * @param string $image
+     * @param array|string $image
      * @return PromotionalBannerInterface
      */
-    public function setImage(string $image): PromotionalBannerInterface;
+    public function setImage(array|string $image): PromotionalBannerInterface;
 
     /**
      * @return int

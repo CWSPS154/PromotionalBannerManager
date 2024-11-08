@@ -68,7 +68,9 @@ class Save extends Action implements HttpPostActionInterface
         $model->setPriority((int)$data['priority']);
         $model->setStartDate($data['start_date']);
         $model->setEndDate($data['end_date']);
+        $model->setStatus((int)$data['status']);
         try {
+            $model = $this->bannerRepository->imageData($model, $data);
             $this->bannerRepository->save($model);
             $this->messageManager->addSuccessMessage(__('Banner Data is Saved Successfully.'));
             return $this->processResultRedirect($model);
