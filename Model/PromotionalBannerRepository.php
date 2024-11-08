@@ -12,6 +12,7 @@ use CWSPS154\PromotionalBannerManager\Api\Data\PromotionalBannerInterfaceFactory
 use CWSPS154\PromotionalBannerManager\Api\Data\PromotionalBannerSearchResultsInterface;
 use CWSPS154\PromotionalBannerManager\Api\Data\PromotionalBannerSearchResultsInterfaceFactory;
 use CWSPS154\PromotionalBannerManager\Api\PromotionalBannerRepositoryInterface;
+use CWSPS154\PromotionalBannerManager\Model\Config\Data;
 use CWSPS154\PromotionalBannerManager\Model\ResourceModel\PromotionalBanner;
 use CWSPS154\PromotionalBannerManager\Model\ResourceModel\PromotionalBanner\CollectionFactory;
 use DateTime;
@@ -22,6 +23,7 @@ use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
+use PHPUnit\Util\Exception;
 
 class PromotionalBannerRepository implements PromotionalBannerRepositoryInterface
 {
@@ -39,7 +41,8 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
         private readonly ResourceModel\PromotionalBanner\CollectionFactory $collectionFactory,
         private readonly CollectionProcessorInterface                      $collectionProcessor,
         private readonly ResourceModel\PromotionalBanner                   $resourceModel,
-        private ImageUploader                                              $imageUploader
+        private ImageUploader                                              $imageUploader,
+        private Data                                                       $configData
     )
     {
     }
@@ -52,6 +55,11 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
      */
     public function save(PromotionalBannerInterface $promotionalBanner)
     {
+        if (!$this->configData->isEnable()) {
+            throw new Exception(
+                __('The Promotional Banner is disabled.')
+            );
+        }
         try {
             $startDate = $promotionalBanner->getStartDate();
             $endDate = $promotionalBanner->getEndDate();
@@ -78,6 +86,11 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
      */
     public function getById(int $entityId)
     {
+        if (!$this->configData->isEnable()) {
+            throw new Exception(
+                __('The Promotional Banner is disabled.')
+            );
+        }
         $promotionalBanner = $this->promotionalBannerInterfaceFactory->create();
         $this->resourceModel->load($promotionalBanner, $entityId);
         if (!$promotionalBanner->getId()) {
@@ -97,6 +110,11 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
      */
     public function getList(SearchCriteriaInterface $searchCriteria)
     {
+        if (!$this->configData->isEnable()) {
+            throw new Exception(
+                __('The Promotional Banner is disabled.')
+            );
+        }
         $collection = $this->collectionFactory->create();
         $this->collectionProcessor->process($searchCriteria, $collection);
         $searchResult = $this->searchResultsInterfaceFactory->create();
@@ -114,6 +132,11 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
      */
     public function delete(PromotionalBannerInterface $promotionalBanner): bool
     {
+        if (!$this->configData->isEnable()) {
+            throw new Exception(
+                __('The Promotional Banner is disabled.')
+            );
+        }
         try {
             $this->resourceModel->delete($promotionalBanner);
         } catch (\Exception $exception) {
