@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--/*-->
+<!-- * Copyright CWSPS154. All rights reserved.-->
+<!-- * @auth CWSPS154-->
+<!-- * @link  https://github.com/CWSPS154-->
+<!-- */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <cms>
+            <promotional_banner_settings>
+                <enable>1</enable>
+                <max_banners>2</max_banners>
+                <sorting_option>1</sorting_option>
+            </promotional_banner_settings>
+        </cms>
+    </default>
+</config>

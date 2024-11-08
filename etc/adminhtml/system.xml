@@ -22,10 +22,11 @@
                        showInStore="1">
                     <label>Maximum Banners</label>
                 </field>
-                <!--                <field id="sorting_option" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">-->
-                <!--                    <label>Sorting Option</label>-->
-                <!--                    <source_model>CWSPS154\PromotionalBanner\Model\Config\Source\Sorting</source_model>-->
-                <!--                </field>-->
+                <field id="sorting_option" translate="label" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Sorting Option</label>
+                    <source_model>CWSPS154\PromotionalBannerManager\Model\Config\Source\Sorting</source_model>
+                </field>
             </group>
         </section>
     </system>
