@@ -1,17 +1,23 @@
 <?php
-declare(strict_types=1);
+/*
+ * Copyright CWSPS154. All rights reserved.
+ * @auth CWSPS154
+ * @link  https://github.com/CWSPS154
+ */
 
 namespace CWSPS154\PromotionalBannerManager\Model;
 
 use CWSPS154\PromotionalBannerManager\Api\Data\PromotionalBannerInterface;
 use CWSPS154\PromotionalBannerManager\Api\Data\PromotionalBannerInterfaceFactory;
+use CWSPS154\PromotionalBannerManager\Api\Data\PromotionalBannerSearchResultsInterface;
+use CWSPS154\PromotionalBannerManager\Api\Data\PromotionalBannerSearchResultsInterfaceFactory;
 use CWSPS154\PromotionalBannerManager\Api\PromotionalBannerRepositoryInterface;
 use CWSPS154\PromotionalBannerManager\Model\ResourceModel\PromotionalBanner;
 use CWSPS154\PromotionalBannerManager\Model\ResourceModel\PromotionalBanner\CollectionFactory;
+use DateTime;
 use Magento\Catalog\Model\ImageUploader;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Magento\Framework\Api\SearchResultsInterfaceFactory;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\LocalizedException;
@@ -21,7 +27,7 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
 {
     /**
      * @param PromotionalBannerInterfaceFactory $promotionalBannerInterfaceFactory
-     * @param SearchResultsInterfaceFactory $searchResultsInterfaceFactory
+     * @param PromotionalBannerSearchResultsInterfaceFactory $searchResultsInterfaceFactory
      * @param CollectionFactory $collectionFactory
      * @param CollectionProcessorInterface $collectionProcessor
      * @param PromotionalBanner $resourceModel
@@ -29,7 +35,7 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
      */
     public function __construct(
         private readonly PromotionalBannerInterfaceFactory                 $promotionalBannerInterfaceFactory,
-        private readonly SearchResultsInterfaceFactory                     $searchResultsInterfaceFactory,
+        private readonly PromotionalBannerSearchResultsInterfaceFactory    $searchResultsInterfaceFactory,
         private readonly ResourceModel\PromotionalBanner\CollectionFactory $collectionFactory,
         private readonly CollectionProcessorInterface                      $collectionProcessor,
         private readonly ResourceModel\PromotionalBanner                   $resourceModel,
@@ -86,7 +92,7 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
 
     /**
      * @param SearchCriteriaInterface $searchCriteria
-     * @return SearchResultsInterfaceFactory
+     * @return PromotionalBannerSearchResultsInterface
      * @throws LocalizedException
      */
     public function getList(SearchCriteriaInterface $searchCriteria)
@@ -139,8 +145,18 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
      *
      * @throws LocalizedException
      */
-    public function validateUniquePrioritySchedule(int $priority, string $startDate, string $endDate, int|null $bannerId): void
+    public function validateUniquePrioritySchedule(int $priority, $startDate, $endDate, $bannerId): void
     {
+        if (!$this->isValidDate($startDate)) {
+            throw new LocalizedException(
+                __('Start Date is a required field. Please add a valid date')
+            );
+        }
+        if (!$this->isValidDate($endDate)) {
+            throw new LocalizedException(
+                __('End Date is a required field. Please add a valid date')
+            );
+        }
         $isConflict = $this->resourceModel->checkForConflict($priority, $startDate, $endDate, $bannerId);
 
         if ($isConflict) {
@@ -158,8 +174,8 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
      */
     public function imageData(PromotionalBannerInterface $model, array $data): PromotionalBannerInterface
     {
-        if(!isset($data['image'][0]['tmp_name'])) {
-            $model->setImage($this->imageUploader->getBasePath().$data['image'][0]['name']);
+        if (!isset($data['image'][0]['tmp_name'])) {
+            $model->setImage($this->imageUploader->getBasePath() . $data['image'][0]['name']);
             return $model;
         }
         if ($model->getEntityId()) {
@@ -185,5 +201,18 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
         }
         $model->setImage($data['image']);
         return $model;
+    }
+
+    /**
+     * Validate if the string is a valid date
+     *
+     * @param string $date
+     * @param string $format
+     * @return bool
+     */
+    public function isValidDate(string $date, string $format = 'Y-m-d'): bool
+    {
+        $dateTime = DateTime::createFromFormat($format, $date);
+        return $dateTime && $dateTime->format($format) === $date;
     }
 }

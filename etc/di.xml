@@ -13,6 +13,8 @@
                 type="CWSPS154\PromotionalBannerManager\Model\PromotionalBannerRepository"/>
     <preference for="CWSPS154\PromotionalBannerManager\Ui\Component\Listing\AddFilterInterface"
                 type="CWSPS154\PromotionalBannerManager\Ui\Component\Listing\FulltextFilter"/>
+    <preference for="CWSPS154\PromotionalBannerManager\Api\Data\PromotionalBannerSearchResultsInterface"
+                type="CWSPS154\PromotionalBannerManager\Model\PromotionalBannerSearchResults"/>
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">

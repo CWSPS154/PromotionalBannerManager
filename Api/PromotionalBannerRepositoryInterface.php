@@ -8,8 +8,8 @@
 namespace CWSPS154\PromotionalBannerManager\Api;
 
 use CWSPS154\PromotionalBannerManager\Api\Data\PromotionalBannerInterface;
+use CWSPS154\PromotionalBannerManager\Api\Data\PromotionalBannerSearchResultsInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Magento\Framework\Api\SearchResultsInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\LocalizedException;
@@ -35,7 +35,7 @@ interface PromotionalBannerRepositoryInterface
 
     /**
      * @param SearchCriteriaInterface $searchCriteria
-     * @return SearchResultsInterface
+     * @return PromotionalBannerSearchResultsInterface
      * @throws LocalizedException
      */
     public function getList(SearchCriteriaInterface $searchCriteria);
