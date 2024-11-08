@@ -1,0 +1,9 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="CWSPS154\PromotionalBannerManager\Block\Index\Slider" name="promotional_banner_slider"
+                   template="CWSPS154_PromotionalBannerManager::slider.phtml"/>
+        </referenceContainer>
+    </body>
+</page>
