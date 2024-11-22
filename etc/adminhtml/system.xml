@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<!--/*-->
+<!-- * Copyright CWSPS154. All rights reserved.-->
+<!-- * @auth CWSPS154-->
+<!-- * @link  https://github.com/CWSPS154-->
+<!-- */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="cms">
+            <resource>CWSPS154_PromotionalBannerManager::config</resource>
+            <group id="promotional_banner_settings" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Promotional Banner Settings</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enable Banner</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="max_banners" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Maximum Banners</label>
+                </field>
+                <field id="sorting_option" translate="label" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Sorting Option</label>
+                    <source_model>CWSPS154\PromotionalBannerManager\Model\Config\Source\Sorting</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

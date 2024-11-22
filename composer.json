@@ -1,20 +1,28 @@
 {
-  "name": "cwsps154/module-promotional-banner-manager",
-  "version": "1.0.0",
-  "description": "Promotional Banner Manager",
-  "type": "magento2-module",
-  "require": {
-    "magento/framework": "*"
-  },
-  "license": [
-    "Proprietary"
-  ],
-  "autoload": {
-    "files": [
-      "registration.php"
+    "name": "cwsps154/module-promotional-banner-manager",
+    "version": "1.0.0",
+    "description": "Promotional Banner Manager",
+    "type": "magento2-module",
+    "require": {
+        "php": "~8.1.0||~8.2.0||~8.3.0",
+        "magento/framework": "103.0.*",
+        "magento/module-backend": "102.0.*"
+    },
+    "license": [
+        "Proprietary"
     ],
-    "psr-4": {
-      "CWSPS154\\PromotionalBannerManager\\": ""
-    }
-  }
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "CWSPS154\\PromotionalBannerManager\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "CWSPS154",
+            "email": "codewithsps154@gmail.com"
+        }
+    ]
 }

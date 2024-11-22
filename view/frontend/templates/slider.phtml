@@ -1,0 +1,52 @@
+<?php
+/** @var \CWSPS154\PromotionalBannerManager\Block\Index\Slider $block */
+$enabled = $block->isEnabled();
+if ($enabled) :
+    $sliderData = $block->getBanners();
+    if ($sliderData->getTotalCount() > 0): ?>
+        <div class="promotional-slider">
+            <?php foreach ($sliderData->getItems() as $slide): ?>
+                <div class="slider-item">
+                    <img src="<?= $block->getBaseUrl() . 'media/' . $slide->getImage() ?>"
+                         alt="<?= $slide->getTitle() ?>" data-id="<?= $slide->getId() ?>"/>
+                    <div class="slider-caption"><?= $slide->getTitle() ?></div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <script type="text/javascript">
+            require(['jquery', 'slick'], function ($) {
+                $(document).ready(function () {
+                    $('.promotional-slider').slick({
+                        autoplay: true,
+                        autoplaySpeed: 3000,
+                        dots: true,
+                        infinite: true,
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    });
+                });
+            });
+        </script>
+    <?php endif; ?>
+<?php endif; ?>
+<style>
+    .promotional-slider {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .slider-item img {
+        width: 100%;
+        height: auto;
+    }
+
+    .slider-caption {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+    }
+</style>

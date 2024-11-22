@@ -1,0 +1,23 @@
+{
+    "promotional_banner": {
+        "column": {
+            "entity_id": true,
+            "title": true,
+            "description": true,
+            "image": true,
+            "priority": true,
+            "start_date": true,
+            "end_date": true,
+            "status": true
+        },
+        "index": {
+            "PROMOTIONAL_BANNER_ENTITY_ID": true,
+            "PROMOTIONAL_BANNER_PRIORITY": true,
+            "PROMOTIONAL_BANNER_START_DATE": true,
+            "PROMOTIONAL_BANNER_END_DATE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

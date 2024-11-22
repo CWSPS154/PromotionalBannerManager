@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright CWSPS154. All rights reserved.
+  ~ @auth CWSPS154
+  ~ @link  https://github.com/CWSPS154
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="CWSPS154_PromotionalBannerManager::banner_manager" title="Promotional Banner Manager" translate="title"
+             parent="Magento_Backend::content" module="CWSPS154_PromotionalBannerManager" sortOrder="20"
+             resource="CWSPS154_PromotionalBannerManager::banner_manager"
+             dependsOnConfig="cms/promotional_banner_settings/enable"/>
+        <add id="CWSPS154_PromotionalBannerManager::listing" title="Banners" translate="title"
+             module="CWSPS154_PromotionalBannerManager" sortOrder="0"
+             parent="CWSPS154_PromotionalBannerManager::banner_manager" action="promotional_banner/index"
+             resource="CWSPS154_PromotionalBannerManager::listing"/>
+    </menu>
+</config>

@@ -1,0 +1,37 @@
+/*
+ * Copyright CWSPS154. All rights reserved.
+ * @auth CWSPS154
+ * @link  https://github.com/CWSPS154
+ */
+
+type PromotionalBanner {
+    entity_id: ID!
+    title: String!
+    description: String!
+    image: String
+    priority: Int
+    start_date: String
+    end_date: String
+    status: Boolean!
+}
+
+type Query {
+    getPromotionalBanner(entity_id: ID!): PromotionalBanner @resolver(class: "CWSPS154\\PromotionalBannerManager\\Model\Resolver\\GetPromotionalBanner")
+    getPromotionalBanners: [PromotionalBanner] @resolver(class: "CWSPS154\\PromotionalBannerManager\\Model\\Resolver\\GetPromotionalBanners")
+}
+
+input PromotionalBannerInput {
+    title: String!
+    description: String!
+    image: String
+    priority: Int
+    start_date: String
+    end_date: String
+    status: Boolean!
+}
+
+type Mutation {
+    createPromotionalBanner(input: PromotionalBannerInput!): PromotionalBanner @resolver(class: "CWSPS154\\PromotionalBannerManager\\Model\Resolver\\CreatePromotionalBanner")
+    updatePromotionalBanner(entity_id: ID!, input: PromotionalBannerInput!): PromotionalBanner @resolver(class: "CWSPS154\PromotionalBannerManager\Model\Resolver\\CreatePromotionalBanner")
+    deletePromotionalBanner(entity_id: ID!): Boolean @resolver(class: "CWSPS154\\PromotionalBannerManager\\Model\\Resolver\\DeletePromotionalBanner")
+}

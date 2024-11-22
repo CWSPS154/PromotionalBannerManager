@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--/*-->
+<!-- * Copyright CWSPS154. All rights reserved.-->
+<!-- * @auth CWSPS154-->
+<!-- * @link  https://github.com/CWSPS154-->
+<!-- */-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/promotional-banner/data/:entityId" method="GET">
+        <service class="CWSPS154\PromotionalBannerManager\Api\PromotionalBannerRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="CWSPS154_PromotionalBannerManager::banner_manager" />
+        </resources>
+    </route>
+    <route url="/V1/promotional-banner/data/search" method="GET">
+        <service class="CWSPS154\PromotionalBannerManager\Api\PromotionalBannerRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="CWSPS154_PromotionalBannerManager::listing" />
+        </resources>
+    </route>
+    <route url="/V1/promotional-banner/data" method="POST">
+        <service class="CWSPS154\PromotionalBannerManager\Api\PromotionalBannerRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="CWSPS154_PromotionalBannerManager::create_banner" />
+        </resources>
+    </route>
+    <route url="/V1/promotional-banner/data/:id " method="PUT">
+        <service class="CWSPS154\PromotionalBannerManager\Api\PromotionalBannerRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="CWSPS154_PromotionalBannerManager::edit_banner" />
+        </resources>
+    </route>
+    <route url="/V1/promotional-banner/data/:entityId" method="DELETE">
+        <service class="CWSPS154\PromotionalBannerManager\Api\PromotionalBannerRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="CWSPS154_PromotionalBannerManager::delete_banner" />
+        </resources>
+    </route>
+</routes>

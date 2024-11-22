@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright CWSPS154. All rights reserved.
+  ~ @auth CWSPS154
+  ~ @link  https://github.com/CWSPS154
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::content">
+                    <resource id="CWSPS154_PromotionalBannerManager::banner_manager"
+                              title="Promotional Banner Manager" translate="title" sortOrder="10">
+                        <resource id="CWSPS154_PromotionalBannerManager::listing"
+                                  title="View Grid" translate="title" sortOrder="10">
+                            <resource id="CWSPS154_PromotionalBannerManager::create_banner"
+                                      title="Create Banner" translate="title" sortOrder="10">
+                                <resource id="CWSPS154_PromotionalBannerManager::edit_banner"
+                                          title="Edit Banner" translate="title" sortOrder="20"/>
+                            </resource>
+                            <resource id="CWSPS154_PromotionalBannerManager::delete_banner"
+                                      title="Delete Banner" translate="title" sortOrder="20"/>
+                        </resource>
+                        <resource id="CWSPS154_PromotionalBannerManager::config"
+                                  title="Banner Configuration" translate="title" sortOrder="20"/>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>
