@@ -9,6 +9,7 @@ namespace CWSPS154\PromotionalBannerManager\Model;
 
 use CWSPS154\PromotionalBannerManager\Api\Data\PromotionalBannerInterface;
 use CWSPS154\PromotionalBannerManager\Model\ResourceModel\PromotionalBanner as ResourceModel;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\AbstractModel;
 
 class PromotionalBanner extends AbstractModel implements PromotionalBannerInterface
@@ -73,10 +74,22 @@ class PromotionalBanner extends AbstractModel implements PromotionalBannerInterf
     /**
      * @param string|array $image
      * @return PromotionalBannerInterface
+     * @throws LocalizedException
      */
     public function setImage(string|array $image): PromotionalBannerInterface
     {
-        return $this->setData(self::IMAGE, $image);
+        /** @var ImagePreProcessor $imagePreProcessor */
+        $imagePreProcessor = $this->_data['imagePreProcessor'] ?? null;
+        if (is_array($image) && $imagePreProcessor) {
+            $image = $imagePreProcessor->uploadImage($this, $image, self::IMAGE);
+            return $this->setData(self::IMAGE, $image);
+        } elseif (base64_decode($image) !== false) {
+            $imgData = str_replace(' ', '+', $image);
+            $imgData = substr($imgData, strpos($imgData, ",") + 1);
+            $image = $imagePreProcessor->saveBase64Image($this, $imgData);
+            return $this->setData(self::IMAGE, $image);
+        }
+        return $this;
     }
 
     /**

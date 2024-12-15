@@ -16,7 +16,6 @@ use CWSPS154\PromotionalBannerManager\Model\Config\Data;
 use CWSPS154\PromotionalBannerManager\Model\ResourceModel\PromotionalBanner;
 use CWSPS154\PromotionalBannerManager\Model\ResourceModel\PromotionalBanner\CollectionFactory;
 use DateTime;
-use Magento\Catalog\Model\ImageUploader;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
@@ -33,7 +32,7 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
      * @param CollectionFactory $collectionFactory
      * @param CollectionProcessorInterface $collectionProcessor
      * @param PromotionalBanner $resourceModel
-     * @param ImageUploader $imageUploader
+     * @param Data $configData
      */
     public function __construct(
         private readonly PromotionalBannerInterfaceFactory                 $promotionalBannerInterfaceFactory,
@@ -41,10 +40,8 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
         private readonly ResourceModel\PromotionalBanner\CollectionFactory $collectionFactory,
         private readonly CollectionProcessorInterface                      $collectionProcessor,
         private readonly ResourceModel\PromotionalBanner                   $resourceModel,
-        private ImageUploader                                              $imageUploader,
         private Data                                                       $configData
-    )
-    {
+    ) {
     }
 
     /**
@@ -63,8 +60,8 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
         try {
             $startDate = $promotionalBanner->getStartDate();
             $endDate = $promotionalBanner->getEndDate();
-            $priority = (int)$promotionalBanner->getPriority();
-            $bannerId = (int)$promotionalBanner->getId();
+            $priority = $promotionalBanner->getPriority();
+            $bannerId = $promotionalBanner->getId();
             $this->validateUniquePrioritySchedule($priority, $startDate, $endDate, $bannerId);
             $this->resourceModel->save($promotionalBanner);
         } catch (LocalizedException $e) {
@@ -168,7 +165,7 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
      *
      * @throws LocalizedException
      */
-    public function validateUniquePrioritySchedule(int $priority, $startDate, $endDate, $bannerId): void
+    public function validateUniquePrioritySchedule(int $priority, string $startDate, string $endDate, ?int $bannerId): void
     {
         if (!$this->isValidDate($startDate)) {
             throw new LocalizedException(
@@ -187,43 +184,6 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
                 __('Another banner with the same priority exists during the specified period.')
             );
         }
-    }
-
-    /**
-     * @param PromotionalBannerInterface $model
-     * @param array $data
-     * @return PromotionalBannerInterface
-     * @throws LocalizedException
-     */
-    public function imageData(PromotionalBannerInterface $model, array $data): PromotionalBannerInterface
-    {
-        if (!isset($data['image'][0]['tmp_name'])) {
-            $model->setImage($this->imageUploader->getBasePath() . $data['image'][0]['name']);
-            return $model;
-        }
-        if ($model->getEntityId()) {
-            if (isset($data['image'][0]['name'])) {
-                $imageName1 = $model->getImage();
-                $imageName2 = $data['image'][0]['name'];
-                if ($imageName1 != $imageName2) {
-                    $imageName = $data['image'][0]['name'];
-                    $data['image'] = $this->imageUploader->moveFileFromTmp($imageName, true);
-                } else {
-                    $data['image'] = $data['image'][0]['name'];
-                }
-            } else {
-                $data['image'] = '';
-            }
-        } else {
-            if (isset($data['image'][0]['name'])) {
-                $imageName = $data['image'][0]['name'];
-                $data['image'] = $this->imageUploader->moveFileFromTmp($imageName, true);
-            } else {
-                $data['image'] = '';
-            }
-        }
-        $model->setImage($data['image']);
-        return $model;
     }
 
     /**

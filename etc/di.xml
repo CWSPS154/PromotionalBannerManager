@@ -56,9 +56,16 @@
             </argument>
         </arguments>
     </type>
-    <type name="CWSPS154\PromotionalBannerManager\Api\PromotionalBannerRepositoryInterface">
+    <type name="CWSPS154\PromotionalBannerManager\Model\ImagePreProcessor">
         <arguments>
             <argument name="imageUploader" xsi:type="object">CWSPS154\PromotionalBannerManager\Model\ImageUploader
+            </argument>
+        </arguments>
+    </type>
+    <type name="CWSPS154\PromotionalBannerManager\Api\Data\PromotionalBannerInterface">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="imagePreProcessor" xsi:type="object">CWSPS154\PromotionalBannerManager\Model\ImagePreProcessor</item>
             </argument>
         </arguments>
     </type>
