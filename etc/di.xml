@@ -34,8 +34,8 @@
     <virtualType name="CWSPS154\PromotionalBannerManager\Model\ImageUploader"
                  type="Magento\Catalog\Model\ImageUploader">
         <arguments>
-            <argument name="baseTmpPath" xsi:type="string">banners/tmp/</argument>
-            <argument name="basePath" xsi:type="string">banners/</argument>
+            <argument name="baseTmpPath" xsi:type="string">banners/tmp</argument>
+            <argument name="basePath" xsi:type="string">banners</argument>
             <argument name="allowedExtensions" xsi:type="array">
                 <item name="jpg" xsi:type="string">jpg</item>
                 <item name="jpeg" xsi:type="string">jpeg</item>

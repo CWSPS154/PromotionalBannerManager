@@ -18,6 +18,8 @@ use Magento\Framework\Exception\NoSuchEntityException;
 interface PromotionalBannerRepositoryInterface
 {
     /**
+     * Save PromotionalBannerInterface
+     *
      * @param PromotionalBannerInterface $promotionalBanner
      * @return PromotionalBannerInterface
      * @throws LocalizedException
@@ -26,6 +28,8 @@ interface PromotionalBannerRepositoryInterface
     public function save(PromotionalBannerInterface $promotionalBanner);
 
     /**
+     * Get PromotionalBannerInterface by ID
+     *
      * @param int $entityId
      * @return PromotionalBannerInterface
      * @throws LocalizedException
@@ -34,6 +38,8 @@ interface PromotionalBannerRepositoryInterface
     public function getById(int $entityId);
 
     /**
+     * Get PromotionalBannerInterface List
+     *
      * @param SearchCriteriaInterface $searchCriteria
      * @return PromotionalBannerSearchResultsInterface
      * @throws LocalizedException
@@ -41,6 +47,8 @@ interface PromotionalBannerRepositoryInterface
     public function getList(SearchCriteriaInterface $searchCriteria);
 
     /**
+     * Delete PromotionalBannerInterface
+     *
      * @param PromotionalBannerInterface $promotionalBanner
      * @return bool
      * @throws LocalizedException
@@ -49,6 +57,8 @@ interface PromotionalBannerRepositoryInterface
     public function delete(PromotionalBannerInterface $promotionalBanner);
 
     /**
+     * Delete PromotionalBannerInterface by ID
+     *
      * @param int $entityId
      * @return bool
      * @throws LocalizedException

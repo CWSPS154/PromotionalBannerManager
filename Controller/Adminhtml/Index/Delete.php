@@ -32,8 +32,7 @@ class Delete extends Action implements HttpPostActionInterface
         Context                                               $context,
         private readonly PromotionalBannerRepositoryInterface $promotionalBannerRepository,
         private readonly LoggerInterface                      $logger
-    )
-    {
+    ) {
         parent::__construct($context);
     }
 

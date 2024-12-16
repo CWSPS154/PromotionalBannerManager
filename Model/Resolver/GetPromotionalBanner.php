@@ -24,9 +24,8 @@ class GetPromotionalBanner implements ResolverInterface
      * @param PromotionalBannerRepositoryInterface $bannerRepository
      */
     public function __construct(
-        private readonly PromotionalBannerRepositoryInterface $bannerRepository,
-    )
-    {
+        private PromotionalBannerRepositoryInterface $bannerRepository,
+    ) {
     }
 
     /**

@@ -1,20 +1,22 @@
 <?php
 /** @var \CWSPS154\PromotionalBannerManager\Block\Index\Slider $block */
+/** @var \Magento\Framework\Escaper $escaper */
 $enabled = $block->isEnabled();
-if ($enabled) :
+if ($enabled):
     $sliderData = $block->getBanners();
     if ($sliderData->getTotalCount() > 0): ?>
         <div class="promotional-slider">
             <?php foreach ($sliderData->getItems() as $slide): ?>
                 <div class="slider-item">
-                    <img src="<?= $block->getBaseUrl() . 'media/' . $slide->getImage() ?>"
-                         alt="<?= $slide->getTitle() ?>" data-id="<?= $slide->getId() ?>"/>
-                    <div class="slider-caption"><?= $slide->getTitle() ?></div>
+                    <img src="<?= $escaper->escapeHtml($block->getBaseUrl() . 'media/' . $slide->getImage()) ?>"
+                         alt="<?= $escaper->escapeHtml($slide->getTitle()) ?>"
+                         data-id="<?= $escaper->escapeHtml($slide->getId()) ?>"/>
+                    <div class="slider-caption"><?= $escaper->escapeHtml($slide->getTitle()) ?></div>
                 </div>
             <?php endforeach; ?>
         </div>
 
-        <script type="text/javascript">
+        <script>
             require(['jquery', 'slick'], function ($) {
                 $(document).ready(function () {
                     $('.promotional-slider').slick({

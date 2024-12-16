@@ -32,18 +32,18 @@ class PromotionalBanner extends AbstractDb
      * @param int $priority
      * @param string $startDate
      * @param string $endDate
-     * @param null $bannerId
+     * @param int|null $bannerId
      * @return bool
      * @throws LocalizedException
      */
-    public function checkForConflict(int $priority, string $startDate, string $endDate, $bannerId = null): bool
+    public function checkForConflict(int $priority, string $startDate, string $endDate, ?int $bannerId = null): bool
     {
         $connection = $this->getConnection();
         $select = $connection->select()
             ->from($this->getMainTable(), ['entity_id'])
             ->where('priority = ?', $priority)
-            ->where('start_date <= ?',  date('Y-m-d', strtotime($endDate)))
-            ->where('end_date >= ?',  date('Y-m-d', strtotime($startDate)));
+            ->where('start_date <= ?', date('Y-m-d', strtotime($endDate)))
+            ->where('end_date >= ?', date('Y-m-d', strtotime($startDate)));
 
         if ($bannerId) {
             $select->where('entity_id != ?', $bannerId);

@@ -20,7 +20,6 @@ readonly class FulltextFilter implements AddFilterInterface
     public function __construct(
         private FilterBuilder $filterBuilder
     ) {
-
     }
 
     /**

@@ -45,6 +45,8 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
     }
 
     /**
+     * Save PromotionalBannerInterface
+     *
      * @param PromotionalBannerInterface $promotionalBanner
      * @return PromotionalBannerInterface
      * @throws LocalizedException
@@ -76,6 +78,8 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
     }
 
     /**
+     * Get PromotionalBannerInterface by ID
+     *
      * @param int $entityId
      * @return PromotionalBannerInterface
      * @throws LocalizedException
@@ -101,6 +105,8 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
     }
 
     /**
+     * Get PromotionalBannerInterface List
+     *
      * @param SearchCriteriaInterface $searchCriteria
      * @return PromotionalBannerSearchResultsInterface
      * @throws LocalizedException
@@ -122,6 +128,8 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
     }
 
     /**
+     * Delete PromotionalBannerInterface
+     *
      * @param PromotionalBannerInterface $promotionalBanner
      * @return bool
      * @throws LocalizedException
@@ -145,6 +153,8 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
     }
 
     /**
+     * Delete PromotionalBannerInterface by ID
+     *
      * @param int $entityId
      * @return bool
      * @throws LocalizedException

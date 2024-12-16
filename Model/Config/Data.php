@@ -23,12 +23,11 @@ class Data
     public function __construct(
         public readonly ScopeConfigInterface  $storeConfig,
         public readonly StoreManagerInterface $storeManager
-    )
-    {
+    ) {
     }
 
     /**
-     * get this feature is enable or not
+     * Get this feature is enable or not
      *
      * @param int|null $storeId
      * @return bool|null
@@ -44,7 +43,7 @@ class Data
     }
 
     /**
-     * get the max_banners count
+     * Get the max_banners count
      *
      * @param int|null $storeId
      * @return int|null
@@ -60,7 +59,7 @@ class Data
     }
 
     /**
-     * get the sorting_options
+     * Get the sorting_options
      *
      * @param int|null $storeId
      * @return int|null
@@ -74,5 +73,4 @@ class Data
             $storeId ?? $this->storeManager->getStore()->getId()
         );
     }
-
 }

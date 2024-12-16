@@ -24,8 +24,7 @@ class Validate extends Action implements HttpGetActionInterface
     public function __construct(
         Context                                               $context,
         private readonly PromotionalBannerRepositoryInterface $bannerRepository,
-    )
-    {
+    ) {
         parent::__construct($context);
     }
 

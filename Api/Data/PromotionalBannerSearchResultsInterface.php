@@ -8,14 +8,19 @@
 namespace CWSPS154\PromotionalBannerManager\Api\Data;
 
 use Magento\Framework\Api\SearchResultsInterface;
+
 interface PromotionalBannerSearchResultsInterface extends SearchResultsInterface
 {
     /**
+     * Get PromotionalBannerInterface[] Items
+     *
      * @return \CWSPS154\PromotionalBannerManager\Api\Data\PromotionalBannerInterface[]
      */
     public function getItems();
 
     /**
+     * Set PromotionalBannerInterface[] Items
+     *
      * @param \CWSPS154\PromotionalBannerManager\Api\Data\PromotionalBannerInterface[] $items
      * @return $this
      */

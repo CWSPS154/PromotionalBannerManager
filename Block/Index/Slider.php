@@ -37,12 +37,13 @@ class Slider extends Template
         private SortOrder                            $sortOrder,
         private Data                                 $configData,
         array                                        $data = []
-    )
-    {
+    ) {
         parent::__construct($context, $data);
     }
 
     /**
+     * Get Banner details
+     *
      * @return PromotionalBannerSearchResultsInterface
      * @throws NoSuchEntityException
      * @throws InputException
@@ -70,6 +71,8 @@ class Slider extends Template
     }
 
     /**
+     * Checking is this module is enabled
+     *
      * @return bool|null
      * @throws NoSuchEntityException
      */

@@ -21,11 +21,12 @@ class GenericButton
     public function __construct(
         private readonly Context                              $context,
         private readonly PromotionalBannerRepositoryInterface $promotionalBannerRepository
-    )
-    {
+    ) {
     }
 
     /**
+     * Get Banner ID
+     *
      * @return mixed|null
      */
     public function getBannerId()
@@ -46,7 +47,7 @@ class GenericButton
      *
      * @param string $route
      * @param array $params
-     * @return  string
+     * @return string
      */
     public function getUrl(string $route = '', array $params = [])
     {

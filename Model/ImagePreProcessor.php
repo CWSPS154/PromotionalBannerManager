@@ -38,20 +38,24 @@ class ImagePreProcessor
     }
 
     /**
+     * Save Base64 Image
+     *
      * @param AbstractModel $model
      * @param string $imgData
+     * @param string $nameField
      * @return string
      * @throws InputException
      * @throws LocalizedException
      */
-    public function saveBase64Image(AbstractModel $model, string $imgData): string
+    public function saveBase64Image(AbstractModel $model, string $imgData, string $nameField): string
     {
+        // phpcs:ignore Magento2.Functions.DiscouragedFunction
         $decodedImage = base64_decode($imgData);
         $fileName = preg_replace("/[^A-Za-z0-9]/", '', str_replace(
-                ' ',
-                '-',
-                strtolower($model->getTitle())
-            )) . '_' . uniqid() . '.jpg';
+            ' ',
+            '-',
+            strtolower($model->getData($nameField))
+        )) . '_' . uniqid() . '.jpg';
         $imageProperties = getimagesizefromstring($decodedImage);
         if (!$imageProperties) {
             throw new LocalizedException(__('Unable to get properties from image.'));
@@ -62,60 +66,41 @@ class ImagePreProcessor
         $imageContent->setBase64EncodedData($imgData);
         $imageContent->setName($fileName);
         $imageContent->setType($imageProperties['mime']);
-        return $this->imageProcessor->processImageContent(
+        $file = $this->imageProcessor->processImageContent(
             $this->imageUploader->getBasePath(),
             $imageContent
         );
+        return $this->imageUploader->getBasePath() . $file;
     }
 
     /**
-     * @param AbstractModel $model
+     * Upload Image
+     *
      * @param array $data
-     * @param string $imageKey
      * @return string
      * @throws FileSystemException
      * @throws LocalizedException
      */
-    public function uploadImage(AbstractModel $model, array $data, string $imageKey = 'image'): string
+    public function uploadImage(array $data): string
     {
         if (!isset($data[0]['tmp_name'])) {
-            return $this->handleExistingImage($data);
+            return $this->handleMediaGalleryImage($data);
         }
-
-        $newImageName = $data[0]['name'] ?? null;
-        $existingImageName = $model->getData($imageKey);
-
-        if ($this->isImageUnchanged($existingImageName, $newImageName)) {
-            return $model->getData($imageKey);
-        }
-
         return $this->processUploadedImage($data);
     }
 
     /**
-     * Check if the image has not changed.
-     *
-     * @param string|null $existingImageName
-     * @param string|null $newImageName
-     * @return bool
-     */
-    private function isImageUnchanged(?string $existingImageName, ?string $newImageName): bool
-    {
-        return $existingImageName && $newImageName && $existingImageName === $newImageName;
-    }
-
-    /**
-     * Handle existing image logic when tmp_name is not set.
+     * Handle existing image from the media gallery.
      *
      * @param array $data
      * @return string
      * @throws FileSystemException
      */
-    private function handleExistingImage(array $data): string
+    private function handleMediaGalleryImage(array $data): string
     {
         if (!$this->fileResidesOutsideCurrentImageDir($data)) {
             $uniqueImageName = $this->checkUniqueImageName($data[0]['name']);
-            return $this->imageUploader->getBasePath() . $uniqueImageName;
+            return $this->imageUploader->getBasePath() . DIRECTORY_SEPARATOR . $uniqueImageName;
         }
         return $this->sanitizeMediaPath($data[0]['url']);
     }
@@ -131,8 +116,8 @@ class ImagePreProcessor
     private function processUploadedImage(array $imageData): string
     {
         if (isset($imageData[0]['name'])) {
-            $uniqueImageName = $this->checkUniqueImageName($imageData[0]['name']);
-            return $this->imageUploader->moveFileFromTmp($uniqueImageName, true);
+//            $uniqueImageName = $this->checkUniqueImageName($imageData[0]['name']);
+            return $this->imageUploader->moveFileFromTmp($imageData[0]['name'], true);
         }
 
         return '';
@@ -147,8 +132,9 @@ class ImagePreProcessor
     private function sanitizeMediaPath(string $url): string
     {
         $mediaPath = DIRECTORY_SEPARATOR . DirectoryList::MEDIA;
+        // phpcs:ignore Magento2.Functions.DiscouragedFunction
         $urlPath = parse_url($url, PHP_URL_PATH);
-
+        // phpcs:ignore Magento2.Functions.DiscouragedFunction
         return str_replace($mediaPath, '', $urlPath);
     }
 
@@ -170,6 +156,7 @@ class ImagePreProcessor
     }
 
     /**
+     * Check file it resides outside current image dir
      *
      * @param array|null $value
      * @return bool

@@ -18,7 +18,7 @@ class Index extends Action implements HttpGetActionInterface
     /**
      * Authorization level of a basic admin session
      */
-    const ADMIN_RESOURCE = 'CWSPS154_PromotionalBannerManager::listing';
+    public const ADMIN_RESOURCE = 'CWSPS154_PromotionalBannerManager::listing';
 
     /**
      * Execute action based on request and return result

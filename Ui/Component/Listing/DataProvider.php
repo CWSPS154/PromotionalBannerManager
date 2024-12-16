@@ -16,10 +16,22 @@ use Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider as UiCo
 
 class DataProvider extends UiComponentDataProvider
 {
+    /**
+     * @param string $name
+     * @param string $primaryFieldName
+     * @param string $requestFieldName
+     * @param ReportingInterface $reporting
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param RequestInterface $request
+     * @param FilterBuilder $filterBuilder
+     * @param array $meta
+     * @param array $data
+     * @param array $additionalFilterPool
+     */
     public function __construct(
-        $name,
-        $primaryFieldName,
-        $requestFieldName,
+        string $name,
+        string $primaryFieldName,
+        string $requestFieldName,
         ReportingInterface $reporting,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         RequestInterface $request,
@@ -27,8 +39,7 @@ class DataProvider extends UiComponentDataProvider
         array $meta = [],
         array $data = [],
         protected readonly array $additionalFilterPool = []
-    )
-    {
+    ) {
         parent::__construct(
             $name,
             $primaryFieldName,

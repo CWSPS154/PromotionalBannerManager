@@ -30,8 +30,7 @@ class Action extends Column
         private readonly Escaper $escaper,
         array                    $components = [],
         array                    $data = []
-    )
-    {
+    ) {
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }
 
@@ -48,12 +47,18 @@ class Action extends Column
                 $name = $this->getData('name');
                 if (isset($item['entity_id'])) {
                     $item[$name]['view'] = [
-                        'href' => $this->context->getUrl(self::PROMOTIONAL_BANNER_EDIT_PATH, ['entity_id' => $item['entity_id']]),
+                        'href' => $this->context->getUrl(
+                            self::PROMOTIONAL_BANNER_EDIT_PATH,
+                            ['entity_id' => $item['entity_id']]
+                        ),
                         'label' => __('Edit')
                     ];
                     $title = $this->escaper->escapeHtml($item['title']);
                     $item[$name]['delete'] = [
-                        'href' => $this->context->getUrl(self::PROMOTIONAL_BANNER_DELETE_PATH, ['entity_id' => $item['entity_id']]),
+                        'href' => $this->context->getUrl(
+                            self::PROMOTIONAL_BANNER_DELETE_PATH,
+                            ['entity_id' => $item['entity_id']]
+                        ),
                         'label' => __('Delete'),
                         'confirm' => [
                             'title' => __('Delete "%1"', $title),

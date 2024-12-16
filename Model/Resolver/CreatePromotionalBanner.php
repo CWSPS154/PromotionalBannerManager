@@ -19,11 +19,14 @@ use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 
 class CreatePromotionalBanner implements ResolverInterface
 {
+    /**
+     * @param PromotionalBannerInterfaceFactory $bannerInterfaceFactory
+     * @param PromotionalBannerRepositoryInterface $bannerRepository
+     */
     public function __construct(
-        private readonly PromotionalBannerInterfaceFactory    $bannerInterfaceFactory,
-        private readonly PromotionalBannerRepositoryInterface $bannerRepository,
-    )
-    {
+        private PromotionalBannerInterfaceFactory    $bannerInterfaceFactory,
+        private PromotionalBannerRepositoryInterface $bannerRepository,
+    ) {
     }
 
     /**

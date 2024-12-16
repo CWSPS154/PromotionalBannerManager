@@ -22,34 +22,40 @@ class DataProvider extends ModifierPoolDataProvider
      * @var array
      */
     protected $loadedData;
-    /**
-     * @var Filesystem
-     */
-    protected Filesystem $filesystem;
-    /**
-     * @var StoreManagerInterface
-     */
-    protected StoreManagerInterface $storeManager;
 
+    /**
+     * @param string $name
+     * @param string $primaryFieldName
+     * @param string $requestFieldName
+     * @param CollectionFactory $collectionFactory
+     * @param StoreManagerInterface $storeManager
+     * @param Filesystem $filesystem
+     * @param array $meta
+     * @param array $data
+     * @param PoolInterface|null $pool
+     */
     public function __construct(
-        $name,
-        $primaryFieldName,
-        $requestFieldName,
-        CollectionFactory $collectionFactory,
-        StoreManagerInterface $storeManager,
-        Filesystem $filesystem,
-        array $meta = [],
-        array $data = [],
-        PoolInterface $pool = null
-    )
-    {
+        string                          $name,
+        string                          $primaryFieldName,
+        string                          $requestFieldName,
+        protected CollectionFactory     $collectionFactory,
+        protected StoreManagerInterface $storeManager,
+        protected Filesystem            $filesystem,
+        array                           $meta = [],
+        array                           $data = [],
+        PoolInterface                   $pool = null
+    ) {
         $this->collection = $collectionFactory->create();
-        $this->filesystem = $filesystem;
-        $this->storeManager = $storeManager;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
     }
 
-    public function getData()
+    /**
+     * Get data
+     *
+     * @return array|null
+     * @throws NoSuchEntityException
+     */
+    public function getData(): ?array
     {
         if (isset($this->loadedData)) {
             return $this->loadedData;
@@ -59,10 +65,11 @@ class DataProvider extends ModifierPoolDataProvider
             $this->loadedData[$attribute->getId()] = $attribute->getData();
             if (isset($this->loadedData[$attribute->getId()]['image'])) {
                 $this->loadedData[$attribute->getId()]['image'] = [];
+                // phpcs:ignore Magento2.Functions.DiscouragedFunction
                 $this->loadedData[$attribute->getId()]['image'][0]['name'] = basename($attribute->getImage());
                 $this->loadedData[$attribute->getId()]['image'][0]['url'] = $this->getMediaUrl() . $attribute->getImage();
-                $this->loadedData[$attribute->getId()]['image'][0]['size'] = $this->getFileSize( $attribute->getImage());
-                $this->loadedData[$attribute->getId()]['image'][0]['type'] = $this->getMimeType( $attribute->getImage());
+                $this->loadedData[$attribute->getId()]['image'][0]['size'] = $this->getFileSize($attribute->getImage());
+                $this->loadedData[$attribute->getId()]['image'][0]['type'] = $this->getMimeType($attribute->getImage());
             }
         }
         return $this->loadedData;
@@ -89,7 +96,7 @@ class DataProvider extends ModifierPoolDataProvider
     {
         $mediaDirectory = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
         $absolutePath = $mediaDirectory->getAbsolutePath($filePath);
-
+        // phpcs:ignore Magento2.Functions.DiscouragedFunction
         return file_exists($absolutePath) ? filesize($absolutePath) : 0;
     }
 
@@ -103,7 +110,7 @@ class DataProvider extends ModifierPoolDataProvider
     {
         $mediaDirectory = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
         $absolutePath = $mediaDirectory->getAbsolutePath($filePath);
-
+        // phpcs:ignore Magento2.Functions.DiscouragedFunction
         return file_exists($absolutePath) ? mime_content_type($absolutePath) : '';
     }
 }

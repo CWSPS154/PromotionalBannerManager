@@ -40,8 +40,7 @@ class Save extends Action implements HttpPostActionInterface
         private readonly PromotionalBannerInterfaceFactory    $bannerInterfaceFactory,
         private readonly PromotionalBannerRepositoryInterface $bannerRepository,
         private readonly LoggerInterface                      $logger
-    )
-    {
+    ) {
         parent::__construct($context);
     }
 

@@ -30,6 +30,8 @@ class PromotionalBanner extends AbstractModel implements PromotionalBannerInterf
     }
 
     /**
+     * Get Title
+     *
      * @return string
      */
     public function getTitle(): string
@@ -38,6 +40,8 @@ class PromotionalBanner extends AbstractModel implements PromotionalBannerInterf
     }
 
     /**
+     * Set Title
+     *
      * @param string $title
      * @return PromotionalBannerInterface
      */
@@ -47,14 +51,18 @@ class PromotionalBanner extends AbstractModel implements PromotionalBannerInterf
     }
 
     /**
-     * @return string
+     * Get Description
+     *
+     * @return string|null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->getData(self::DESCRIPTION);
     }
 
     /**
+     * Set Description
+     *
      * @param string $description
      * @return PromotionalBannerInterface
      */
@@ -64,6 +72,8 @@ class PromotionalBanner extends AbstractModel implements PromotionalBannerInterf
     }
 
     /**
+     * Get Image
+     *
      * @return string|array|null
      */
     public function getImage(): string|array|null
@@ -72,6 +82,8 @@ class PromotionalBanner extends AbstractModel implements PromotionalBannerInterf
     }
 
     /**
+     * Set Image
+     *
      * @param string|array $image
      * @return PromotionalBannerInterface
      * @throws LocalizedException
@@ -81,18 +93,21 @@ class PromotionalBanner extends AbstractModel implements PromotionalBannerInterf
         /** @var ImagePreProcessor $imagePreProcessor */
         $imagePreProcessor = $this->_data['imagePreProcessor'] ?? null;
         if (is_array($image) && $imagePreProcessor) {
-            $image = $imagePreProcessor->uploadImage($this, $image, self::IMAGE);
+            $image = $imagePreProcessor->uploadImage($image);
             return $this->setData(self::IMAGE, $image);
+            // phpcs:ignore Magento2.Functions.DiscouragedFunction
         } elseif (base64_decode($image) !== false) {
             $imgData = str_replace(' ', '+', $image);
             $imgData = substr($imgData, strpos($imgData, ",") + 1);
-            $image = $imagePreProcessor->saveBase64Image($this, $imgData);
+            $image = $imagePreProcessor->saveBase64Image($this, $imgData, self::TITLE);
             return $this->setData(self::IMAGE, $image);
         }
         return $this;
     }
 
     /**
+     * Get Priority
+     *
      * @return int
      */
     public function getPriority(): int
@@ -101,6 +116,8 @@ class PromotionalBanner extends AbstractModel implements PromotionalBannerInterf
     }
 
     /**
+     * Set Priority
+     *
      * @param int $priority
      * @return PromotionalBannerInterface
      */
@@ -110,6 +127,8 @@ class PromotionalBanner extends AbstractModel implements PromotionalBannerInterf
     }
 
     /**
+     * Get Start Date
+     *
      * @return string
      */
     public function getStartDate(): string
@@ -118,6 +137,8 @@ class PromotionalBanner extends AbstractModel implements PromotionalBannerInterf
     }
 
     /**
+     * Set Start Date
+     *
      * @param string $startDate
      * @return PromotionalBannerInterface
      */
@@ -127,6 +148,8 @@ class PromotionalBanner extends AbstractModel implements PromotionalBannerInterf
     }
 
     /**
+     * Get End Date
+     *
      * @return string
      */
     public function getEndDate(): string
@@ -135,6 +158,8 @@ class PromotionalBanner extends AbstractModel implements PromotionalBannerInterf
     }
 
     /**
+     * Set End Date
+     *
      * @param string $endDate
      * @return PromotionalBannerInterface
      */
@@ -144,6 +169,8 @@ class PromotionalBanner extends AbstractModel implements PromotionalBannerInterf
     }
 
     /**
+     * Get Status
+     *
      * @return int
      */
     public function getStatus(): int
@@ -152,6 +179,8 @@ class PromotionalBanner extends AbstractModel implements PromotionalBannerInterf
     }
 
     /**
+     * Set Status
+     *
      * @param int $status
      * @return PromotionalBannerInterface
      */

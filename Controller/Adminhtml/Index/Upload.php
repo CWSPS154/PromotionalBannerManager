@@ -32,8 +32,7 @@ class Upload extends Action implements HttpPostActionInterface
     public function __construct(
         Context               $context,
         private ImageUploader $imageUploader
-    )
-    {
+    ) {
         parent::__construct($context);
     }
 
