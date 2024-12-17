@@ -10,13 +10,13 @@ namespace CWSPS154\PromotionalBannerManager\Controller\Adminhtml\Index;
 use CWSPS154\PromotionalBannerManager\Api\PromotionalBannerRepositoryInterface;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
+use Magento\Backend\Model\View\Result\Page;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Exception\NotFoundException;
 
 class Edit extends Action implements HttpGetActionInterface
 {
@@ -40,10 +40,9 @@ class Edit extends Action implements HttpGetActionInterface
     /**
      * Execute action based on request and return result
      *
-     * @return ResultInterface|ResponseInterface
-     * @throws NotFoundException
+     * @return ResultInterface|ResponseInterface|Page
      */
-    public function execute()
+    public function execute(): ResultInterface|ResponseInterface|Page
     {
         $entity_id = $this->getRequest()->getParam('entity_id');
         if ($entity_id) {
@@ -55,7 +54,7 @@ class Edit extends Action implements HttpGetActionInterface
             }
         }
 
-        /** @var ResultInterface $resultPage */
+        /** @var Page $resultPage */
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu('Magento_Backend::content_elements');
         $resultPage->addBreadcrumb(__('Promotional Banner Manager'), __('Promotional Banner Manager'));

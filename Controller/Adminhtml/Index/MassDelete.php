@@ -15,6 +15,7 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
@@ -51,7 +52,7 @@ class MassDelete extends Action implements HttpPostActionInterface
      *
      * @return ResultInterface|ResponseInterface
      */
-    public function execute()
+    public function execute(): ResultInterface|ResponseInterface
     {
         $deleteCount = 0;
         $deletedError = 0;
@@ -82,7 +83,7 @@ class MassDelete extends Action implements HttpPostActionInterface
             );
         }
 
-        /** @var ResultInterface $resultPage */
+        /** @var Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
 
         return $resultRedirect->setPath('*/*/');

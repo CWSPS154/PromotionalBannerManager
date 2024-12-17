@@ -40,14 +40,14 @@ class CreatePromotionalBanner implements ResolverInterface
      * @return mixed|Value
      * @throws LocalizedException
      */
-    public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
+    public function resolve(Field $field, $context, ResolveInfo $info, ?array $value = null, ?array $args = null)
     {
         try {
             $input = $args['input'];
 
             $banner = $this->bannerInterfaceFactory->create();
-            if (!empty($data['entity_id'])) {
-                $banner->setId($data['entity_id']);
+            if (!empty($input['entity_id'])) {
+                $banner->setId($input['entity_id']);
             }
             $banner->setTitle($input['title']);
             $banner->setDescription($input['description']);

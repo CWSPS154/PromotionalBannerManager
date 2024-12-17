@@ -65,4 +65,16 @@ interface PromotionalBannerRepositoryInterface
      * @throws CouldNotDeleteException
      */
     public function deleteById(int $entityId);
+
+    /**
+     * Validate that no other banner has the same priority and overlapping schedule
+     *
+     * @param int $priority
+     * @param string $startDate
+     * @param string $endDate
+     * @param int|null $bannerId
+     * @return void
+     * @throws LocalizedException
+     */
+    public function validateUniquePrioritySchedule(int $priority, string $startDate, string $endDate, ?int $bannerId);
 }

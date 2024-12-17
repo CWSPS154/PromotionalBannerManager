@@ -27,7 +27,7 @@ class Index extends Action implements HttpGetActionInterface
      */
     public function execute(): ResultInterface|Page
     {
-        /** @var ResultInterface $resultPage */
+        /** @var Page $resultPage */
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu('Magento_Backend::content_elements');
         $resultPage->addBreadcrumb(__('Promotional Banner Manager'), __('Promotional Banner Manager'));

@@ -11,6 +11,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
+use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Ui\Component\Listing\Columns\Column;
 
@@ -69,6 +70,8 @@ class Image extends Column
      */
     public function getMediaUrl(?string $path): string
     {
-        return $this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) . $path;
+        /** @var Store $store */
+        $store = $this->storeManager->getStore();
+        return $store->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) . $path;
     }
 }

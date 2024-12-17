@@ -172,7 +172,7 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
      * @param string $startDate
      * @param string $endDate
      * @param int|null $bannerId
-     *
+     * @return void
      * @throws LocalizedException
      */
     public function validateUniquePrioritySchedule(int $priority, string $startDate, string $endDate, ?int $bannerId): void
@@ -203,7 +203,7 @@ class PromotionalBannerRepository implements PromotionalBannerRepositoryInterfac
      * @param string $format
      * @return bool
      */
-    public function isValidDate(string $date, string $format = 'Y-m-d'): bool
+    protected function isValidDate(string $date, string $format = 'Y-m-d'): bool
     {
         $dateTime = DateTime::createFromFormat($format, $date);
         return $dateTime && $dateTime->format($format) === $date;

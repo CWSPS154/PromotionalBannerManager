@@ -12,7 +12,9 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
 
 class Validate extends Action implements HttpGetActionInterface
@@ -31,15 +33,15 @@ class Validate extends Action implements HttpGetActionInterface
     /**
      * Execute action based on request and return result
      *
-     * @return \Magento\Framework\Controller\ResultInterface|ResponseInterface
-     * @throws \Magento\Framework\Exception\NotFoundException
+     * @return ResultInterface|ResponseInterface
      */
-    public function execute()
+    public function execute(): ResultInterface|ResponseInterface
     {
         $entityId = $this->getRequest()->getParam('entity_id');
         $priority = (int)$this->getRequest()->getParam('priority');
         $startDate = $this->getRequest()->getParam('start_date');
         $endDate = $this->getRequest()->getParam('end_date');
+        /** @var Json $resultJson */
         $resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
         try {
             $this->bannerRepository->validateUniquePrioritySchedule($priority, $startDate, $endDate, $entityId);

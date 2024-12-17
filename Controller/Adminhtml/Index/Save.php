@@ -14,12 +14,14 @@ use Exception;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Action\HttpPostActionInterface;
+use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\InputException;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NotFoundException;
+use Magento\Framework\HTTP\PhpEnvironment\Request;
 use Psr\Log\LoggerInterface;
 
 class Save extends Action implements HttpPostActionInterface
@@ -47,17 +49,17 @@ class Save extends Action implements HttpPostActionInterface
     /**
      * Execute action based on request and return result
      *
-     * @return ResultInterface|ResponseInterface
-     * @throws NotFoundException
+     * @return ResponseInterface
      */
-    public function execute()
+    public function execute(): ResponseInterface
     {
-        if (!$this->_formKeyValidator->validate($this->getRequest())) {
+        /** @var Request|RequestInterface $request */
+        $request = $this->getRequest();
+        if (!$this->_formKeyValidator->validate($request)) {
             $this->messageManager->addErrorMessage(__("Form key is Invalidate"));
             return $this->_redirect('*/*');
         }
-        $data = $this->getRequest()->getPostValue();
-        /** @var PromotionalBannerInterface $model */
+        $data = $request->getPostValue();
         $model = $this->bannerInterfaceFactory->create();
         if (!empty($data['entity_id'])) {
             $model->setId($data['entity_id']);
@@ -91,7 +93,7 @@ class Save extends Action implements HttpPostActionInterface
      * @param PromotionalBannerInterface $model
      * @return ResponseInterface
      */
-    private function processResultRedirect(PromotionalBannerInterface $model)
+    private function processResultRedirect(PromotionalBannerInterface $model): ResponseInterface
     {
         $backParam = $this->getRequest()->getParam('back');
         if ($backParam === 'edit' && $model->getId()) {
@@ -110,7 +112,7 @@ class Save extends Action implements HttpPostActionInterface
      * @param Exception $exception
      * @return void
      */
-    private function handleException(Exception $exception)
+    private function handleException(Exception $exception): void
     {
         if (method_exists($exception, 'getErrors')) {
             $messages = array_map(function ($error) {

@@ -41,7 +41,7 @@ class Delete extends Action implements HttpPostActionInterface
      *
      * @return ResponseInterface
      */
-    public function execute()
+    public function execute(): ResponseInterface
     {
         $entity_id = $this->getRequest()->getParam('entity_id');
         if ($entity_id) {

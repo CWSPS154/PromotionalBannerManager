@@ -12,6 +12,7 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Filesystem;
 use Magento\Framework\UrlInterface;
+use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Ui\DataProvider\Modifier\PoolInterface;
 use Magento\Ui\DataProvider\ModifierPoolDataProvider;
@@ -83,7 +84,9 @@ class DataProvider extends ModifierPoolDataProvider
      */
     protected function getMediaUrl(): string
     {
-        return $this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA);
+        /** @var Store $store */
+        $store = $this->storeManager->getStore();
+        return $store->getBaseUrl(UrlInterface::URL_TYPE_MEDIA);
     }
 
     /**

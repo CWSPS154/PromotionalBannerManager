@@ -10,9 +10,9 @@ namespace CWSPS154\PromotionalBannerManager\Controller\Adminhtml\Index;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\Controller\Result\Forward;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
-use Magento\Framework\Exception\NotFoundException;
 
 class NewAction extends Action implements HttpGetActionInterface
 {
@@ -25,11 +25,10 @@ class NewAction extends Action implements HttpGetActionInterface
      * Execute action based on request and return result
      *
      * @return ResultInterface|ResponseInterface
-     * @throws NotFoundException
      */
-    public function execute()
+    public function execute(): ResultInterface|ResponseInterface
     {
-        /** @var ResultInterface $resultPage */
+        /** @var Forward $resultPage */
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_FORWARD);
         return $resultPage->forward('edit');
     }
